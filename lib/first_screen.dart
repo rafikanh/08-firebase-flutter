@@ -8,9 +8,14 @@ import 'package:firebase_flutter/login_page.dart';
 import 'package:firebase_flutter/sign_in.dart';
 
 class FirstScreen extends StatelessWidget {
+  const FirstScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Rafika Nurhayati | 2031710081"),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
