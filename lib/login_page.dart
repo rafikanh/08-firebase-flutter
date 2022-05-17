@@ -4,7 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_flutter/sign_in.dart';
+import 'package:firebase_flutter/authentication.dart';
 import 'package:firebase_flutter/first_screen.dart';
+import 'package:firebase_flutter/second_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -73,17 +75,22 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   onPressed: () async {
-                    await AuthSign.signIn(
-                            emailController.text, passwordController.text)
+                    await signIn(emailController.text, passwordController.text)
                         .then((result) {
-                      if (result != null) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return FirstScreen();
-                            },
+                      if (result == null) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SecondScreen(
+                                      email: emailController.text,
+                                    )));
+                      } else {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            result,
+                            style: TextStyle(fontSize: 16),
                           ),
-                        );
+                        ));
                       }
                     });
                   }),
@@ -107,17 +114,22 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   onPressed: () async {
-                    await AuthSign.signUp(
-                            emailController.text, passwordController.text)
+                    signUp(emailController.text, passwordController.text)
                         .then((result) {
-                      if (result != null) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return FirstScreen();
-                            },
+                      if (result == null) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SecondScreen(
+                                      email: emailController.text,
+                                    )));
+                      } else {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                            result,
+                            style: TextStyle(fontSize: 16),
                           ),
-                        );
+                        ));
                       }
                     });
                   }),
